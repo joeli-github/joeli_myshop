@@ -1,10 +1,8 @@
 package com.mmall.util;
 
-import com.mmall.common.RedisPool;
 import com.mmall.common.RedisShardedPool;
 
 import lombok.extern.slf4j.Slf4j;
-import redis.clients.jedis.Jedis;
 import redis.clients.jedis.ShardedJedis;
 /**
  * 封装jedis api
@@ -70,6 +68,22 @@ public class RedisShardedPoolUtil {
 		return result;
 	}
 	
+	public static Long setnx(String key,String value) {
+		ShardedJedis jedis = null;
+		Long result = null;
+		
+		try {
+			jedis = RedisShardedPool.getJedis();
+			result = jedis.setnx(key, value);
+		} catch (Exception e) {
+			log.error("setnx key:{} value:{} error",key,value,e);
+			RedisShardedPool.returnBrokenResource(jedis);
+			return result;
+		}
+		RedisShardedPool.returnResource(jedis);
+		return result;
+	}
+	
 	public static String get(String key) {
 		ShardedJedis jedis = null;
 		String result = null;
@@ -104,7 +118,6 @@ public class RedisShardedPoolUtil {
 	
 	public static void main(String[] args) {
 		RedisShardedPoolUtil.set("testkey", "testvaule");
-		String value = RedisPoolUtil.get("testkey");
 		RedisShardedPoolUtil.setEx("keyex", 60*20, "valueex");
 		RedisShardedPoolUtil.expire("testkey", 60*10);
 		RedisShardedPoolUtil.del("testkey");
