@@ -7,7 +7,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources.dev"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources.beta"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources.prod"/>
-        <property name="context-root" value="mmall"/>
         <property name="java-output-path" value="/mmall/target/classes"/>
+        <property name="context-root" value="mmall2"/>
     </wb-module>
 </project-modules>
