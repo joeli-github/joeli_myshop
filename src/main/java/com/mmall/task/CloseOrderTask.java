@@ -44,11 +44,11 @@ public class CloseOrderTask {
 	
 	private void closeOrder(String lockName) {
 		RedisShardedPoolUtil.expire(lockName, 50);
-		log.info("获取分布式锁:{},ThreadName",lockName,Thread.currentThread().getName());
+		log.info("获取分布式锁:{},ThreadName:{}",lockName,Thread.currentThread().getName());
 		int hour = Integer.parseInt(PropertiesUtil.getProperty("close.order.task.time.hour", "2"));
 		//iOrderService.closeOrder(hour);
 		RedisShardedPoolUtil.del(lockName);
-		log.info("释放分布式锁:{},ThreadName",lockName,Thread.currentThread().getName());
+		log.info("释放分布式锁:{},ThreadName:{}",lockName,Thread.currentThread().getName());
 		log.info("=================================");
 	}
 	
