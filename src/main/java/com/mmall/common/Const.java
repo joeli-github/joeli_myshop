@@ -80,5 +80,7 @@ public class Const {
         }
     }
 	
-	
+	public interface redisLock{
+		String CLOSE_ORDER_TASK_LOCK = "CLOSE_ORDER_TASK_LOCK";//关闭订单的分布式锁
+	}
 }
