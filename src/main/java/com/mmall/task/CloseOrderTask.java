@@ -2,6 +2,7 @@ package com.mmall.task;
 
 import javax.annotation.PreDestroy;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -57,7 +58,7 @@ public class CloseOrderTask {
 			String lockVauleString = RedisShardedPoolUtil.get(Const.redisLock.CLOSE_ORDER_TASK_LOCK);
 			if (lockVauleString!=null && System.currentTimeMillis()>Long.parseLong(lockVauleString)) {
 				String getSetString = RedisShardedPoolUtil.getSet(Const.redisLock.CLOSE_ORDER_TASK_LOCK, String.valueOf(System.currentTimeMillis()+lockTimeOut));
-				if (getSetString == null || (getSetString!=null && getSetString == lockVauleString)) {
+				if (getSetString == null || (getSetString!=null && StringUtils.equals(lockVauleString, getSetString))) {
 					closeOrder(Const.redisLock.CLOSE_ORDER_TASK_LOCK);
 				}else {
 					log.info("没有获取到分布式锁:{}",Const.redisLock.CLOSE_ORDER_TASK_LOCK);
