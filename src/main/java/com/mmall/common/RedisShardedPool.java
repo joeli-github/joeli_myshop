@@ -5,8 +5,6 @@ import java.util.List;
 
 import com.mmall.util.PropertiesUtil;
 
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisShardInfo;
 import redis.clients.jedis.ShardedJedis;
@@ -57,10 +55,12 @@ public class RedisShardedPool {
 		return pool.getResource();
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static void returnBrokenResource(ShardedJedis jedis) {
 		pool.returnBrokenResource(jedis);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static void returnResource(ShardedJedis jedis) {
 		pool.returnResource(jedis);
 	}
