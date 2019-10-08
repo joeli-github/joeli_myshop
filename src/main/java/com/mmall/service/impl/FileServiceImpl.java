@@ -37,7 +37,7 @@ public class FileServiceImpl implements IFileService {
 			//targetFile.delete();
 		} catch (IllegalStateException | IOException e) {
 
-			log.error("上传文件成功",e);
+			log.error("上传文件失败",e);
 			return null;
 		}
 		
