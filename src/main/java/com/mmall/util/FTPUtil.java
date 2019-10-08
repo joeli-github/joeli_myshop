@@ -3,8 +3,10 @@ package com.mmall.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.List;
 
+import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,8 +41,9 @@ public class FTPUtil {
 		if (connectServer(this.ip, this.port, this.user, this.pwd)) {
 			try {
 				ftpClient.changeWorkingDirectory(remotePath);
+				
 				ftpClient.setBufferSize(1024*1024*10);
-				ftpClient.setControlEncoding("utf-8");
+				ftpClient.setControlEncoding("UTF-8");
 				ftpClient.setFileTransferMode(FTPClient.BINARY_FILE_TYPE);
 				ftpClient.enterLocalPassiveMode();
 				for (File file : fileList) {
