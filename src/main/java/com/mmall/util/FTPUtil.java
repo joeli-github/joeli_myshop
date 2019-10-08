@@ -39,7 +39,7 @@ public class FTPUtil {
 		if (connectServer(this.ip, this.port, this.user, this.pwd)) {
 			try {
 				ftpClient.changeWorkingDirectory(remotePath);
-				ftpClient.setBufferSize(1024);
+				ftpClient.setBufferSize(1024*1024*10);
 				ftpClient.setControlEncoding("utf-8");
 				ftpClient.setFileTransferMode(FTPClient.BINARY_FILE_TYPE);
 				ftpClient.enterLocalPassiveMode();
