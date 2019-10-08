@@ -208,7 +208,7 @@ public class ProductManageController {
 //			return ServerResponse.createByErrorMessage("无权限操作");
 //		}
 		String path =httpServletRequest.getSession().getServletContext().getRealPath("upload");
-		String targetFileName = "upload/"+iFileService.upload(file, path);
+		String targetFileName = iFileService.upload(file, path);
 		String url = PropertiesUtil.getProperty("ftp.server.http.prefix")+targetFileName;
 		Map<String,String> fileMap = Maps.newHashMap();
 		fileMap.put("uri", targetFileName);
